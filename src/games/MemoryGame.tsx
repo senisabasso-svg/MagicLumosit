@@ -132,7 +132,7 @@ export function MemoryGame({ onDone, onBack }: Props) {
     return (
       <div className="game-shell">
         <p className="score-line">
-          PuntuaciÛn final: <strong>{score}</strong>
+          Puntuaci√≥n final: <strong>{score}</strong>
         </p>
         <p className="game-instructions">Rondas superadas: {Math.min(ROUNDS, round + 1)}</p>
         <button type="button" className="big-btn" onClick={onBack}>
@@ -151,8 +151,8 @@ export function MemoryGame({ onDone, onBack }: Props) {
       </div>
       <p className="game-instructions">
         {phase === "watch"
-          ? `Memoriz· ${sequenceRef.current.length || sequenceLength(round)} casillas en orden.`
-          : `RepetÌ la secuencia (${progress}/${sequenceRef.current.length}).`}
+          ? `Memoriz√° ${sequenceRef.current.length || sequenceLength(round)} casillas en orden.`
+          : `Repet√≠ la secuencia (${progress}/${sequenceRef.current.length}).`}
       </p>
 
       <div className="grid-memory grid-4">

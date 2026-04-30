@@ -47,11 +47,11 @@ function solve(sequence: string, mode: Mode): string {
 }
 
 function modeHelp(mode: Mode): string {
-  if (mode === "exacto") return "Escribí la secuencia exacta";
-  if (mode === "reverso") return "Escribila al revés";
-  if (mode === "solo-digitos") return "Escribí solo los dígitos";
-  if (mode === "solo-letras") return "Escribí solo las letras";
-  return "Desplazá cada símbolo +1 (9->0, Z->A)";
+  if (mode === "exacto") return "EscribÃ­ la secuencia exacta";
+  if (mode === "reverso") return "Escribila al revÃ©s";
+  if (mode === "solo-digitos") return "EscribÃ­ solo los dÃ­gitos";
+  if (mode === "solo-letras") return "EscribÃ­ solo las letras";
+  return "DesplazÃ¡ cada sÃ­mbolo +1 (9->0, Z->A)";
 }
 
 function createChallenge(round: number): Challenge {
@@ -127,7 +127,7 @@ export function FlashGame({ onDone, onBack }: Props) {
     return (
       <div className="game-shell">
         <p className="score-line">
-          Puntuación final: <strong>{score}</strong>
+          PuntuaciÃ³n final: <strong>{score}</strong>
         </p>
         <p className="game-instructions">Modalidades completadas: {ROUNDS}</p>
         <button type="button" className="big-btn" onClick={onBack}>

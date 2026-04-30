@@ -10,37 +10,37 @@ import { StroopGame } from "./games/StroopGame";
 const GAMES: GameMeta[] = [
   {
     id: "reflex",
-    title: "Reflejo t·ctico",
+    title: "Reflejo t√°ctico",
     tag: "Velocidad + Control",
-    description: "Decisiones SI/NO con reglas cambiantes, penalizaciÛn por falsos positivos.",
+    description: "Decisiones SI/NO con reglas cambiantes, penalizaci√≥n por falsos positivos.",
     emoji: "?"
   },
   {
     id: "flash",
     title: "Flash adaptativo",
     tag: "Memoria de trabajo",
-    description: "Secuencias alfanumÈricas con transformaciones, reversa y filtros.",
+    description: "Secuencias alfanum√©ricas con transformaciones, reversa y filtros.",
     emoji: "??"
   },
   {
     id: "memory",
     title: "Matriz de ruta",
     tag: "Espacial avanzada",
-    description: "CuadrÌcula 4x4, secuencias largas y sistema de vidas.",
+    description: "Cuadr√≠cula 4x4, secuencias largas y sistema de vidas.",
     emoji: "??"
   },
   {
     id: "parity",
-    title: "LÛgica exprÈs",
-    tag: "C·lculo mental",
-    description: "Operaciones r·pidas con reglas din·micas: paridad, signo, primos y m˙ltiplos.",
+    title: "L√≥gica expr√©s",
+    tag: "C√°lculo mental",
+    description: "Operaciones r√°pidas con reglas din√°micas: paridad, signo, primos y m√∫ltiplos.",
     emoji: "?"
   },
   {
     id: "stroop",
     title: "Stroop multicapa",
-    tag: "AtenciÛn ejecutiva",
-    description: "Cambia entre modo tinta, palabra y coincidencia bajo presiÛn temporal.",
+    tag: "Atenci√≥n ejecutiva",
+    description: "Cambia entre modo tinta, palabra y coincidencia bajo presi√≥n temporal.",
     emoji: "??"
   }
 ];
@@ -67,7 +67,7 @@ export default function App() {
           </header>
           <div className="stats-bar">
             <div className="stat-pill">
-              Racha: <strong>{persist.streak}</strong> dÌa{persist.streak === 1 ? "" : "s"}
+              Racha: <strong>{persist.streak}</strong> d√≠a{persist.streak === 1 ? "" : "s"}
             </div>
             <div className="stat-pill">
               Sesiones: <strong>{persist.totalPlays}</strong>
@@ -91,7 +91,7 @@ export default function App() {
             ))}
           </div>
           <p className="footer-note">
-            Sesiones r·pidas de alta carga cognitiva. Instal· como PWA para abrirla como app nativa.
+            Sesiones r√°pidas de alta carga cognitiva. Instal√° como PWA para abrirla como app nativa.
           </p>
         </>
       )}

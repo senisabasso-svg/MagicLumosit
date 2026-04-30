@@ -44,10 +44,10 @@ function sample<T>(arr: readonly T[]): T {
 }
 
 function ruleText(rule: RuleType): string {
-  if (rule === "paridad") return "¿El resultado es par?";
-  if (rule === "multiple3") return "¿Es múltiplo de 3?";
-  if (rule === "signo") return "¿Es positivo?";
-  return "¿Es número primo?";
+  if (rule === "paridad") return "Â¿El resultado es par?";
+  if (rule === "multiple3") return "Â¿Es mÃºltiplo de 3?";
+  if (rule === "signo") return "Â¿Es positivo?";
+  return "Â¿Es nÃºmero primo?";
 }
 
 function evaluate(rule: RuleType, value: number): boolean {
@@ -127,7 +127,7 @@ export function ParityGame({ onDone, onBack }: Props) {
     } else {
       scoreRef.current = Math.max(0, scoreRef.current - 28);
       setScore(scoreRef.current);
-      setFeedback(`Error (-28) · valor ${challenge.value}`);
+      setFeedback(`Error (-28) Â· valor ${challenge.value}`);
     }
     window.setTimeout(advanceRound, 450);
   };
@@ -136,7 +136,7 @@ export function ParityGame({ onDone, onBack }: Props) {
     return (
       <div className="game-shell">
         <p className="score-line">
-          Puntuación final: <strong>{score}</strong>
+          PuntuaciÃ³n final: <strong>{score}</strong>
         </p>
         <p className="game-instructions">Rondas completadas: {ROUNDS}</p>
         <button type="button" className="big-btn" onClick={onBack}>

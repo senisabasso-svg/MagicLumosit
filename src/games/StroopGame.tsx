@@ -93,10 +93,10 @@ export function StroopGame({ onDone, onBack }: Props) {
 
   const prompt =
     challenge.mode === "tinta"
-      ? "Elegí color de la tinta"
+      ? "ElegÃ­ color de la tinta"
       : challenge.mode === "palabra"
-        ? "Elegí el significado de la palabra"
-        : "¿Coinciden palabra y tinta?";
+        ? "ElegÃ­ el significado de la palabra"
+        : "Â¿Coinciden palabra y tinta?";
 
   const answerColor = (id: ColorId) => {
     if (answeredRef.current || finished || challenge.mode === "coinciden") return;
@@ -111,7 +111,7 @@ export function StroopGame({ onDone, onBack }: Props) {
     } else {
       scoreRef.current = Math.max(0, scoreRef.current - 24);
       setScore(scoreRef.current);
-      setFeedback(`Error (-24) · era ${expected}`);
+      setFeedback(`Error (-24) Â· era ${expected}`);
     }
     window.setTimeout(nextRound, 420);
   };
@@ -138,7 +138,7 @@ export function StroopGame({ onDone, onBack }: Props) {
     return (
       <div className="game-shell">
         <p className="score-line">
-          Puntuación final: <strong>{score}</strong>
+          PuntuaciÃ³n final: <strong>{score}</strong>
         </p>
         <p className="game-instructions">Interferencias completadas: {ROUNDS}</p>
         <button type="button" className="big-btn" onClick={onBack}>

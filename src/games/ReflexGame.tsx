@@ -30,17 +30,17 @@ type Rule = {
 const RULES: Rule[] = [
   {
     id: "color-cian",
-    label: "Tocá SI solo si el color es cian",
+    label: "TocÃ¡ SI solo si el color es cian",
     check: (s) => s.color === "cian"
   },
   {
     id: "shape-triangulo",
-    label: "Tocá SI solo si la forma es triángulo",
+    label: "TocÃ¡ SI solo si la forma es triÃ¡ngulo",
     check: (s) => s.shape === "triangulo"
   },
   {
     id: "mismatch",
-    label: "Tocá SI si color y forma NO combinan",
+    label: "TocÃ¡ SI si color y forma NO combinan",
     check: (s) => {
       const map: Record<ColorId, ShapeId> = {
         violeta: "circulo",
@@ -56,7 +56,7 @@ const RULES: Rule[] = [
 const SYMBOL_BY_SHAPE: Record<ShapeId, string> = {
   circulo: "?",
   triangulo: "?",
-  cuadrado: "¦",
+  cuadrado: "Â¦",
   rombo: "?"
 };
 
@@ -148,7 +148,7 @@ export function ReflexGame({ onDone, onBack }: Props) {
       scoreRef.current = Math.max(0, scoreRef.current - 30);
       setScore(scoreRef.current);
       if (timeout) setFeedback("Tiempo agotado (-30)");
-      else setFeedback("Error de decisión (-30)");
+      else setFeedback("Error de decisiÃ³n (-30)");
     }
 
     setPhase("feedback");
@@ -186,7 +186,7 @@ export function ReflexGame({ onDone, onBack }: Props) {
           <span className="hud-chip">RT medio {avgRt || 0} ms</span>
         </div>
         <p className="score-line">
-          Puntuación final: <strong>{score}</strong>
+          PuntuaciÃ³n final: <strong>{score}</strong>
         </p>
         <button type="button" className="big-btn" onClick={onBack}>
           Volver al inicio
