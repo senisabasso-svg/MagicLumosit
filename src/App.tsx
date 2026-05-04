@@ -1,14 +1,14 @@
 import { useCallback, useMemo, useState } from "react";
 import type { GameId, GameMeta } from "./types";
 import {
+  authenticateUser,
   load,
   loginAsAdmin,
   loginAsUser,
   logoutUser,
   recordGuestPlay,
   recordSession,
-  registerUser,
-  userExists
+  registerUser
 } from "./storage";
 import { ReflexGame } from "./games/ReflexGame";
 import { FlashGame } from "./games/FlashGame";
@@ -76,6 +76,7 @@ export default function App() {
   const [loginPassword, setLoginPassword] = useState("");
   const [waEmail, setWaEmail] = useState("");
   const [adminNewUserEmail, setAdminNewUserEmail] = useState("");
+  const [adminNewUserPassword, setAdminNewUserPassword] = useState("");
   const [waModalOpen, setWaModalOpen] = useState(false);
   const [waReason, setWaReason] = useState<"no-user" | "guest-limit">("no-user");
   const [loginError, setLoginError] = useState("");
@@ -132,8 +133,12 @@ export default function App() {
       setGuestMode(false);
       return;
     }
-    if (!userExists(clean)) {
-      setLoginError("Usuario no registrado. Solicitá el alta premium.");
+    if (!loginPassword.trim()) {
+      setLoginError("Ingresá tu contraseña.");
+      return;
+    }
+    if (!authenticateUser(clean, loginPassword)) {
+      setLoginError("Usuario o contraseña incorrectos.");
       return;
     }
     setPersist(loginAsUser(clean));
@@ -176,7 +181,11 @@ export default function App() {
       setAdminError("Ingresá un mail válido.");
       return;
     }
-    const { next, created } = registerUser(clean);
+    if (!adminNewUserPassword.trim()) {
+      setAdminError("Ingresá una contraseña para el usuario.");
+      return;
+    }
+    const { next, created } = registerUser(clean, adminNewUserPassword);
     setPersist(next);
     if (!created) {
       setAdminError("Ese usuario ya existe.");
@@ -184,6 +193,7 @@ export default function App() {
     }
     setAdminError("");
     setAdminNewUserEmail("");
+    setAdminNewUserPassword("");
   };
 
   const sortedUsers = useMemo(
@@ -218,12 +228,12 @@ export default function App() {
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
             />
-            <label htmlFor="login-password">Clave (solo para admin)</label>
+            <label htmlFor="login-password">Clave</label>
             <input
               id="login-password"
               type="password"
               autoComplete="current-password"
-              placeholder="Clave de admin"
+              placeholder="Tu contraseña"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
             />
@@ -272,6 +282,13 @@ export default function App() {
                 placeholder="mail del nuevo usuario"
                 value={adminNewUserEmail}
                 onChange={(e) => setAdminNewUserEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                autoComplete="off"
+                placeholder="contraseña del nuevo usuario"
+                value={adminNewUserPassword}
+                onChange={(e) => setAdminNewUserPassword(e.target.value)}
               />
               <button type="button" className="big-btn" onClick={handleAdminCreateUser}>
                 Dar de alta

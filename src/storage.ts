@@ -4,6 +4,7 @@ export type UserRole = "admin" | "user";
 
 export type RegisteredUser = {
   email: string;
+  password: string;
   createdAt: string;
 };
 
@@ -38,6 +39,12 @@ export function load(): Persisted {
     const raw = localStorage.getItem(KEY);
     if (!raw) return { ...defaultState };
     const parsed = JSON.parse(raw) as Partial<Persisted>;
+    const users =
+      parsed.users?.map((user) => ({
+        email: user.email?.trim().toLowerCase() ?? "",
+        password: user.password ?? "",
+        createdAt: user.createdAt ?? new Date().toISOString()
+      })) ?? [];
     return {
       totalPlays: parsed.totalPlays ?? 0,
       bestScores: parsed.bestScores ?? {},
@@ -45,7 +52,7 @@ export function load(): Persisted {
       streak: parsed.streak ?? 0,
       userEmail: parsed.userEmail ?? null,
       userRole: parsed.userRole ?? null,
-      users: parsed.users ?? [],
+      users,
       guestPlays: parsed.guestPlays ?? {}
     };
   } catch {
@@ -117,23 +124,25 @@ export function logoutUser(): Persisted {
   return next;
 }
 
-export function registerUser(email: string): { next: Persisted; created: boolean } {
+export function registerUser(email: string, password: string): { next: Persisted; created: boolean } {
   const prev = load();
   const clean = email.trim().toLowerCase();
-  if (!clean) return { next: prev, created: false };
+  const cleanPassword = password.trim();
+  if (!clean || !cleanPassword) return { next: prev, created: false };
   const exists = prev.users.some((u) => u.email === clean);
   if (exists) return { next: prev, created: false };
   const next: Persisted = {
     ...prev,
-    users: [...prev.users, { email: clean, createdAt: new Date().toISOString() }]
+    users: [...prev.users, { email: clean, password: cleanPassword, createdAt: new Date().toISOString() }]
   };
   save(next);
   return { next, created: true };
 }
 
-export function userExists(email: string): boolean {
+export function authenticateUser(email: string, password: string): boolean {
   const clean = email.trim().toLowerCase();
-  return load().users.some((u) => u.email === clean);
+  const cleanPassword = password.trim();
+  return load().users.some((u) => u.email === clean && u.password === cleanPassword);
 }
 
 export function recordGuestPlay(gameId: string): Persisted {
