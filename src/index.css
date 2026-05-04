@@ -77,6 +77,49 @@ button {
   color: var(--muted);
 }
 
+.auth-shell {
+  min-height: calc(100dvh - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.auth-card label {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.auth-card input,
+.modal-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.auth-error {
+  margin: 4px 0 0;
+  text-align: center;
+  color: #fda4af;
+  font-size: 0.82rem;
+}
+
+.admin-hint {
+  margin: 2px 0 0;
+}
+
 .stats-bar {
   display: flex;
   justify-content: center;
@@ -156,6 +199,14 @@ button {
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
+}
+
+.home-header {
+  margin-bottom: 12px;
+}
+
+.logout-btn {
+  margin-top: 14px;
 }
 
 .back-btn {
@@ -475,4 +526,80 @@ button {
 
 .grid-memory.grid-4 .cell-btn {
   min-height: 66px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.78);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.modal-card h3 {
+  margin: 0 0 8px;
+}
+
+.modal-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.admin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.admin-card h3 {
+  margin: 0 0 6px;
+}
+
+.admin-card p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.admin-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.user-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.user-row {
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.82rem;
+}
+
+.user-row span:last-child {
+  color: var(--muted);
 }

@@ -1,17 +1,32 @@
 const KEY = "magiclumosity-v1";
 
+export type UserRole = "admin" | "user";
+
+export type RegisteredUser = {
+  email: string;
+  createdAt: string;
+};
+
 export type Persisted = {
   totalPlays: number;
   bestScores: Record<string, number>;
   lastPlayDay: string | null;
   streak: number;
+  userEmail: string | null;
+  userRole: UserRole | null;
+  users: RegisteredUser[];
+  guestPlays: Record<string, number>;
 };
 
 const defaultState: Persisted = {
   totalPlays: 0,
   bestScores: {},
   lastPlayDay: null,
-  streak: 0
+  streak: 0,
+  userEmail: null,
+  userRole: null,
+  users: [],
+  guestPlays: {}
 };
 
 function todayKey(): string {
@@ -27,7 +42,11 @@ export function load(): Persisted {
       totalPlays: parsed.totalPlays ?? 0,
       bestScores: parsed.bestScores ?? {},
       lastPlayDay: parsed.lastPlayDay ?? null,
-      streak: parsed.streak ?? 0
+      streak: parsed.streak ?? 0,
+      userEmail: parsed.userEmail ?? null,
+      userRole: parsed.userRole ?? null,
+      users: parsed.users ?? [],
+      guestPlays: parsed.guestPlays ?? {}
     };
   } catch {
     return { ...defaultState };
@@ -55,7 +74,77 @@ export function recordSession(gameId: string, score: number): Persisted {
     totalPlays: prev.totalPlays + 1,
     bestScores: { ...prev.bestScores, [gameId]: best },
     lastPlayDay: day,
-    streak
+    streak,
+    userEmail: prev.userEmail,
+    userRole: prev.userRole,
+    users: prev.users,
+    guestPlays: prev.guestPlays
+  };
+  save(next);
+  return next;
+}
+
+export function loginAsUser(email: string): Persisted {
+  const prev = load();
+  const next: Persisted = {
+    ...prev,
+    userEmail: email.trim().toLowerCase() || null,
+    userRole: "user"
+  };
+  save(next);
+  return next;
+}
+
+export function loginAsAdmin(email: string): Persisted {
+  const prev = load();
+  const next: Persisted = {
+    ...prev,
+    userEmail: email.trim().toLowerCase() || null,
+    userRole: "admin"
+  };
+  save(next);
+  return next;
+}
+
+export function logoutUser(): Persisted {
+  const prev = load();
+  const next: Persisted = {
+    ...prev,
+    userEmail: null,
+    userRole: null
+  };
+  save(next);
+  return next;
+}
+
+export function registerUser(email: string): { next: Persisted; created: boolean } {
+  const prev = load();
+  const clean = email.trim().toLowerCase();
+  if (!clean) return { next: prev, created: false };
+  const exists = prev.users.some((u) => u.email === clean);
+  if (exists) return { next: prev, created: false };
+  const next: Persisted = {
+    ...prev,
+    users: [...prev.users, { email: clean, createdAt: new Date().toISOString() }]
+  };
+  save(next);
+  return { next, created: true };
+}
+
+export function userExists(email: string): boolean {
+  const clean = email.trim().toLowerCase();
+  return load().users.some((u) => u.email === clean);
+}
+
+export function recordGuestPlay(gameId: string): Persisted {
+  const prev = load();
+  const nextGuestPlays = {
+    ...prev.guestPlays,
+    [gameId]: (prev.guestPlays[gameId] ?? 0) + 1
+  };
+  const next: Persisted = {
+    ...prev,
+    guestPlays: nextGuestPlays
   };
   save(next);
   return next;
