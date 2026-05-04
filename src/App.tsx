@@ -22,35 +22,35 @@ const GAMES: GameMeta[] = [
     title: "Reflejo táctico",
     tag: "Velocidad + Control",
     description: "Decisiones SI/NO con reglas cambiantes, penalización por falsos positivos.",
-    emoji: "?"
+    emoji: "⚡"
   },
   {
     id: "flash",
     title: "Flash adaptativo",
     tag: "Memoria de trabajo",
     description: "Secuencias alfanuméricas con transformaciones, reversa y filtros.",
-    emoji: "??"
+    emoji: "🧠"
   },
   {
     id: "memory",
     title: "Matriz de ruta",
     tag: "Espacial avanzada",
     description: "Cuadrícula 4x4, secuencias largas y sistema de vidas.",
-    emoji: "??"
+    emoji: "🧩"
   },
   {
     id: "parity",
     title: "Lógica exprés",
     tag: "Cálculo mental",
     description: "Operaciones rápidas con reglas dinámicas: paridad, signo, primos y múltiplos.",
-    emoji: "?"
+    emoji: "➗"
   },
   {
     id: "stroop",
     title: "Stroop multicapa",
     tag: "Atención ejecutiva",
     description: "Cambia entre modo tinta, palabra y coincidencia bajo presión temporal.",
-    emoji: "??"
+    emoji: "🎯"
   }
 ];
 
@@ -348,7 +348,7 @@ export default function App() {
         <>
           <div className="screen-title">
             <button type="button" className="back-btn" onClick={goHome} aria-label="Volver">
-              ?
+              ←
             </button>
             <h2>
               {meta.emoji} {meta.title}
